@@ -42,3 +42,56 @@ function renderTable(data) {
   });
 }
 
+//Sortering
+function sortCourses(property) {
+
+  if (currentSort === property) {
+    sortAscending = !sortAscending;
+  } else {
+    sortAscending = true;
+  }
+
+  currentSort = property;
+
+  filteredCourses.sort((a, b) => {
+    if (a[property] < b[property]) return sortAscending ? -1 : 1;
+    if (a[property] > b[property]) return sortAscending ? 1 : -1;
+    return 0;
+  });
+
+  renderTable(filteredCourses);
+}
+
+//Filtrering
+function filteredCourses(searchTerm) {
+  searchTerm = searchTerm.toLowerCase();
+
+  filteredCourses = courses.filter(course =>
+    course.code.toLowerCase().includes(searchTerm) ||
+    course.coursename.toLowerCase().includes(searchTerm) ||
+    course.progression.toLowerCase().includes(searchTerm)
+  );
+
+  renderTable(filteredCourses);
+
+}
+
+//Eventlisteners
+document.getElementById("sortCode").addEventListener("click", () => {
+  sortCourses("code");
+});
+
+document.getElementById("sortname").addEventListener("click", () => {
+  sortCourses("coursename");
+});
+
+document.getElementById("sortProgression").addEventListener("click", () => {
+  sortCourses("progression");
+});
+
+document.getElementById("search").addEventListener("input", (e) => {
+  filteredCourses(e.target.value);
+});
+
+//Kör när sidan laddas
+fetchCourses();
