@@ -1,4 +1,3 @@
-"use strict"
 
 //Lägger till variabler.
 let courses = [];
@@ -16,6 +15,7 @@ async function fetchCourses() {
     }
 
     courses = await response.json();
+    console.log(courses);
     filteredCourses = courses;
     renderTable(filteredCourses);
 
@@ -32,13 +32,13 @@ function renderTable(data) {
   data.forEach(course => {
     const row = document.createElement("tr");
 
-     row.innerHTML = `
-     <td>${course.code}</td>
-     <td>${course.coursename}</td>
-     <td>${course.progression}</td>
+    row.innerHTML = `
+          <td>${course.code}</td>
+          <td>${course.coursename}</td>
+          <td>${course.progression}</td>
      `;
 
-     tableBody.appendChild(row);
+    tableBody.appendChild(row);
   });
 }
 
@@ -63,7 +63,7 @@ function sortCourses(property) {
 }
 
 //Filtrering
-function filteredCourses(searchTerm) {
+function filterCourses(searchTerm) {
   searchTerm = searchTerm.toLowerCase();
 
   filteredCourses = courses.filter(course =>
@@ -77,11 +77,13 @@ function filteredCourses(searchTerm) {
 }
 
 //Eventlisteners
+document.addEventListener("DOMContentLoaded" , () => {
+
 document.getElementById("sortCode").addEventListener("click", () => {
   sortCourses("code");
 });
 
-document.getElementById("sortname").addEventListener("click", () => {
+document.getElementById("sortName").addEventListener("click", () => {
   sortCourses("coursename");
 });
 
@@ -90,8 +92,9 @@ document.getElementById("sortProgression").addEventListener("click", () => {
 });
 
 document.getElementById("search").addEventListener("input", (e) => {
-  filteredCourses(e.target.value);
-});
+  filterCourses(e.target.value);
+})
 
-//Kör när sidan laddas
-fetchCourses();
+ fetchCourses();
+
+});
