@@ -1,24 +1,25 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+"use strict"
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+//Lägger till variabler.
+let courses = [];
+let filteredCourses = [];
+let currentSort = "";
+let sortAscending = true;
 
-setupCounter(document.querySelector('#counter'))
+//Hämta JSON
+async function fetchCourses() {
+  try {
+    const response = await fetch("https://webbutveckling.miun.se/files/ramschema.json");
+
+    if [!response.ok] {
+      throw new Error("Fel vid hämtning av data");
+    }
+
+    courses = await response.json();
+    filteredCourses = courses;
+    renderTable(filteredCourses);
+
+  } catch (error) {
+    console.error("Något gick fel:", error);
+  }
+}
