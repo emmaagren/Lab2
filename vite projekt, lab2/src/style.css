@@ -27,7 +27,13 @@ h1 {
   transition: 0.2s ease;
 }
 
-/* Tabell*/
+#search:focus {
+  outline: none;
+  border-color: #0077ff;
+  box-shadow: 0 0 0 2px rgba(0, 119, 255, 0.2);
+}
+
+/* Tabell */
 table {
   width: 100%;
   max-width: 900px;
@@ -37,4 +43,37 @@ table {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 5px 15px black;
+}
+
+/* Tabellhuvud */
+thead {
+  background-color: #0077ff;
+  color: #fff;
+}
+
+th {
+  padding: 1rem;
+  text-align: left;
+  cursor:pointer;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+th:hover {
+  background-color: #005fcc;
+}
+
+/* Tabellrader */
+td {
+  padding: 0.9 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+tbody tr:hover {
+  background-color: #f1f7ff;
+}
+
+/* Zebra */
+tbody tr:nth-child(even) {
+  background-color: #fafafa;
 }
